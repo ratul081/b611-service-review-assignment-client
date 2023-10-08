@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs'
-import { RxDotFilled } from 'react-icons/rx'
 import './home.css'
 import Cards from './Cards';
 import { Link } from 'react-router-dom';
