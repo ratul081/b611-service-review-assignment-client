@@ -4,7 +4,7 @@ import { useLoaderData } from 'react-router';
 import { Link } from 'react-router-dom';
 
 const ServiceDetails = () => {
-  const { name, description, image } = useLoaderData()
+  const { title, description, image } = useLoaderData()
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = data => console.log(data);
   console.log(errors);
@@ -14,7 +14,7 @@ const ServiceDetails = () => {
         <div className="grid gap-8 lg:grid-cols-2">
           <div className="lg:pr-10 lg:mt-10">
             <h5 className="mb-4 text-3xl lg:text-6xl font-extrabold leading-none">
-              {name}
+              {title}
             </h5>
             <p className="mb-6 text-gray-900 text-justify">{description}</p>
             <Link
@@ -26,7 +26,7 @@ const ServiceDetails = () => {
             <img
               className="object-cover w-full h-56 rounded shadow-lg sm:h-96"
               src={image}
-              alt={name}
+              alt={title}
             />
           </div>
         </div>

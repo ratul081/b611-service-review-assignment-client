@@ -1,13 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Service from './Service';
+import { AuthContext } from '../../Context/AuthProvider';
 
 const Services = () => {
+  const { user } = useContext(AuthContext)
+  const { displayName, email } = user
+
   const [serviceData, setFoodData] = useState([])
   useEffect(() => {
-    fetch("http://localhost:5000/foods")
+    fetch("http://localhost:5000/services")
       .then(res => res.json())
-      .then(data => setFoodData(data))
+      .then(data => setFoodData(data.data))
   }, [])
+  const { title, _id } = serviceData
+  const handelOrder = () => {
+    const orderDetails = {
+      name: displayName,
+      email,
+      service_id : _id,
+      service_name: title
+    }
+  }
+
+
   console.log(serviceData);
   return (
     <div className='my-6 mx-12' >

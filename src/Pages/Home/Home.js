@@ -7,14 +7,14 @@ import Carousel from './Carousel';
 
 const Home = () => {
 
-  const [allData, setAllData] = useState([])
+  const [services, setServices] = useState([])
   useEffect(() => {
-    fetch("http://localhost:5000/services")
+    fetch("http://localhost:5000/services_home")
       .then(res => res.json())
-      .then(data => setAllData(data))
+      .then(data => setServices(data.data))
   }, [])
 
-  console.log("🚀 ~ file: Home.js:11 ~ Home ~ allData:", allData)
+  console.log("🚀 ~ file: Home.js:11 ~ Home ~ allData:", services)
 
 
   return (
@@ -43,8 +43,7 @@ const Home = () => {
             <div className="text-center">
               <h2 className="text-2xl font-bold my-4">Best of offer <br /> In Town!</h2>
               <p>Get the best offers and combos
-                at the best price only at Bhoj Shala
-                Food!.</p>
+                at the best price only at Bhoj Shala</p>
             </div>
           </div>
 
@@ -54,14 +53,14 @@ const Home = () => {
         <h1 className='text-center text-5xl font-semibold my-14' >Explore our bests</h1>
         <div className='flex justify-center gap-4 mx-28'>
           {
-            allData.map((data, index) => <Cards
+            services.map((data, index) => <Cards
               key={index}
               data={data}
             ></Cards>)
           }
         </div>
         <div className='flex justify-center'>
-          <Link to='/foods' className='text-xl btn btn-primary normal-case my-8'>Browse all</Link>
+          <Link to='/services' className='text-xl btn btn-primary normal-case my-8'>Browse all</Link>
         </div>
       </div>
       <div className="flex justify-evenly">
@@ -70,7 +69,7 @@ const Home = () => {
           <p className='text-2xl my-6'>Don't have any cash? No worries!  Pay digitally instead of cash.</p>
           <p className='text-xl'>Learn more</p>
         </div>
-          <img width={820} src="https://i.ibb.co/5nG8s2Z/pay-info.png" alt=""/>
+        <img width={820} src="https://i.ibb.co/5nG8s2Z/pay-info.png" alt="" />
       </div>
     </div>
   );
