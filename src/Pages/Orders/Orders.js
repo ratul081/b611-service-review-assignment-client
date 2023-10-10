@@ -35,7 +35,6 @@ const Orders = () => {
                     <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white text-lg">
                       Apple Watch
                     </td>
-
                     <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white text-lg">
                       $599
                     </td>
@@ -65,7 +64,6 @@ const Orders = () => {
                     <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white text-lg">
                       Iphone 12
                     </td>
-
                     <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white text-lg">
                       $999
                     </td>
