@@ -2,11 +2,10 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
 import { Link } from 'react-router-dom';
-import { DevTool } from "@hookform/devtools";
 
-const FoodDetails = () => {
+const ServiceDetails = () => {
   const { name, description, image } = useLoaderData()
-  const { register, control, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = data => console.log(data);
   console.log(errors);
   return (
@@ -47,10 +46,9 @@ const FoodDetails = () => {
             <input className='my-4 btn btn-primary' type="submit" />
           </form>
         </div>
-        <DevTool control={control} />
       </div>
     </div>
   );
 };
 
-export default FoodDetails;
+export default ServiceDetails;

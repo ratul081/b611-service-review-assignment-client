@@ -70,7 +70,7 @@ const Home = () => {
           <p className='text-2xl my-6'>Don't have any cash? No worries!  Pay digitally instead of cash.</p>
           <p className='text-xl'>Learn more</p>
         </div>
-          <img width={820} src="https://i.ibb.co/5nG8s2Z/pay-info.png" alt="" srcset="" />
+          <img width={820} src="https://i.ibb.co/5nG8s2Z/pay-info.png" alt=""/>
       </div>
     </div>
   );

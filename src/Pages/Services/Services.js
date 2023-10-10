@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import Food from './Food';
+import Service from './Service';
 
-const Foods = () => {
-  const [foodData, setFoodData] = useState([])
+const Services = () => {
+  const [serviceData, setFoodData] = useState([])
   useEffect(() => {
     fetch("http://localhost:5000/foods")
       .then(res => res.json())
       .then(data => setFoodData(data))
   }, [])
-  console.log(foodData);
+  console.log(serviceData);
   return (
     <div className='my-6 mx-12' >
       <p className='my-12 font-bold text-2xl'>Order whatever you like</p>
       <div className='mx-24 grid grid-cols-3 gap-8 place-items-center'>
         {
-          foodData.map((food, index) =>
-            <Food
+          serviceData.map((service, index) =>
+            <Service
               key={index}
-              food={food}
-            ></Food>
+              service={service}
+            ></Service>
           )
         }
       </div>
@@ -26,4 +26,4 @@ const Foods = () => {
   );
 };
 
-export default Foods;
+export default Services;
