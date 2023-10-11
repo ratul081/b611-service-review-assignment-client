@@ -14,8 +14,6 @@ const Home = () => {
       .then(data => setServices(data.data))
   }, [])
 
-  console.log("🚀 ~ file: Home.js:11 ~ Home ~ allData:", services)
-
 
   return (
     <div>
@@ -51,7 +49,7 @@ const Home = () => {
       </div>
       <div className='my-12'>
         <h1 className='text-center text-5xl font-semibold my-14' >Explore our bests</h1>
-        <div className='flex justify-center gap-4 mx-28'>
+        <div  className='flex justify-center gap-4 mx-28'>
           {
             services.map((data, index) => <Cards
               key={index}

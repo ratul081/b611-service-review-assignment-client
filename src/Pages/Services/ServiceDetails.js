@@ -4,7 +4,7 @@ import { useLoaderData } from 'react-router';
 import { Link } from 'react-router-dom';
 
 const ServiceDetails = () => {
-  const { title, description, image } = useLoaderData()
+  const { title, description, image } = useLoaderData().data
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = data => console.log(data);
   console.log(errors);
