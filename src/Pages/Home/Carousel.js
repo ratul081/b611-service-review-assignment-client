@@ -55,7 +55,7 @@ const Carousel = () => {
     setCurrentIndex(slideIndex);
   };
   return (
-    <div className='max-w-[1650px] h-[780px] w-full m-auto py-16 px-4 relative group'>
+    <div className='max-w-[1650px] h-[780px] w-full m-auto mt-0 py-16 px-4 relative group'>
       <div
         style={{ backgroundImage: `url(${slides[currentIndex].url})`,backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}
         className='w-full h-full bg-center bg-cover duration-500'

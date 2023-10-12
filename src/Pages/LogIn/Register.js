@@ -1,19 +1,22 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 import toast from 'react-hot-toast';
+import { setAuthToken } from '../../Utilities/Api';
 
 const Register = () => {
   const { createUser, updateUserProfile } = useContext(AuthContext);
+  const [agree, setAgree] = useState(false)
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, },
     validate,
     reset,
     getValues,
   } = useForm();
+  const navigate = useNavigate();
   const handleSingUp = (data) => {
     const { email, password, firstName, lastName } = data;
     createUser(email, password)
@@ -22,9 +25,8 @@ const Register = () => {
         console.log("🚀 ~ file: Register.jsx:24 ~ handleSingUp ~ user:", user);
         reset();
         handleUpdateUser(firstName, lastName);
-        // setAuthToken(user)
-        toast.success("An email is sent to you for verification")
-        // navigate("/");
+        setAuthToken(user)
+        navigate("/");
       })
       .catch((error) => {
         toast.error(error.message);
@@ -42,8 +44,6 @@ const Register = () => {
   };
   return (
     <div style={{ backgroundImage: 'url("https://i.ibb.co/M7ZYzT3/Register-bg-image.jpg")' }} className='min-h-screen'>
-      {/* component */}
-
       <section className="lg:grid items-center">
         <main
           className="flex  items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6"
@@ -132,15 +132,12 @@ const Register = () => {
                 )}
               </div>
               <div className="col-span-6 sm:col-span-3">
-                <label
-
-                  className="block text-lg font-medium text-gray-700"
+                <label className="block text-lg font-medium text-gray-700"
                 >
                   Password
                 </label>
                 <input
                   type="password"
-
                   {...register("password", {
                     required: "Password is required",
                     minLength: {
@@ -148,23 +145,17 @@ const Register = () => {
                       message: "Password must be at least 10 characters",
                     },
                   })}
-
-                  className="mt-2 w-full rounded-md border-gray-200 bg-white text-lg text-gray-700 shadow-sm"
-                />
+                  className="mt-2 w-full rounded-md border-gray-200 bg-white text-lg text-gray-700 shadow-sm" />
                 {errors.password && (
                   <p className="text-red-500 text-lg">{`${errors.password.message}`}</p>
                 )}
               </div>
               <div className="col-span-6 sm:col-span-3">
-                <label
-                  htmlFor="PasswordConfirmation"
-                  className="block text-lg font-medium text-gray-700"
-                >
+                <label htmlFor="PasswordConfirmation" className="block text-lg font-medium text-gray-700">
                   Password Confirmation
                 </label>
                 <input
                   type="password"
-
                   {...register("passwordConfirmation", {
                     validate: (value) =>
                       value === getValues("password") || "Passwords must match",
@@ -178,40 +169,33 @@ const Register = () => {
                 )}
               </div>
               <div className="col-span-6">
-                <label htmlFor="MarketingAccept" className="flex gap-4">
-                  <input
-                    type="checkbox"
-                    id="MarketingAccept"
-                    name="marketing_accept"
-                    className="h-5 w-5 rounded-md border-gray-200 bg-white shadow-sm"
-                  />
-                  <span className=" text-gray-700">
+                <div className='flex space-x-4'>
+                  <div className="grid place-items-center">
+                    <label htmlFor="MarketingAccept" className="flex gap-4">
+                      <input type="checkbox" className="h-5 w-5 grid place-items-center rounded-md border-gray-200 bg-white shadow-sm" placeholder="agree" onChange={() => setAgree(!agree)} />
+                    </label>
+                  </div>
+                  <p className=" text-gray-700">
                     I want to receive emails about events, product updates and
                     company announcements.
-                  </span>
-                </label>
+                  </p>
+                </div>
               </div>
               <div className="col-span-6">
                 <p className=" text-gray-500">
                   By creating an account, you agree to our
-                  <Link className="mx-2 text-gray-700 underline">
-                    terms and conditions
-                  </Link>
-                  and
+                  <Link className="mx-2 text-gray-700 underline">terms and conditions</Link>and
                   <Link className="mx-2 text-gray-700 underline">privacy policy</Link>.
                 </p>
               </div>
-
               <div className="col-span-6 flex justify-center items-center sm:gap-4">
                 <div className='flex flex-col'>
                   <button type='submit'
-                    className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3  font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
-                  >
+                    className={`inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3  font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500 ${agree ? '' : "btn-disabled"}`}>
                     Create an account
                   </button>
                   <p className="mt-4 text-gray-500">
                     Already have an account?
-
                     <Link className="text-gray-700 mx-1 underline">Log in</Link>.
                   </p>
                 </div>

@@ -1,13 +1,17 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 import toast from 'react-hot-toast';
 import { GoogleAuthProvider } from 'firebase/auth';
+import { setAuthToken } from '../../Utilities/Api';
 
 const LogIn = () => {
   const [error, setError] = useState("");
   const { singIn, googleSingIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
   const googleProvider = new GoogleAuthProvider();
   const {
     register,
@@ -19,8 +23,9 @@ const LogIn = () => {
     singIn(email, password)
       .then((result) => {
         const user = result.user;
+        setAuthToken(user);
         toast.success("Login success");
-        // navigate(from, { replace: true });
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         toast.error(error.message);
@@ -33,9 +38,9 @@ const LogIn = () => {
       .then((result) => {
         const user = result.user;
         //get jwt token
-        // setAuthToken(user);
+        setAuthToken(user);
         toast.success("Login success");
-        // navigate(from, { replace: true });
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         toast.error(error.message);
@@ -82,6 +87,7 @@ const LogIn = () => {
               </svg>
             </div>
             <button type='submit' className="bg-[#002D74] rounded-xl text-white text-2xl py-2 hover:scale-105 duration-300">Login</button>
+            <div className="my-2 text-red-600">{error ? error : ""}</div>
           </form>
           <div className="mt-6 grid grid-cols-3 items-center text-gray-400">
             <hr className="border-gray-400" />

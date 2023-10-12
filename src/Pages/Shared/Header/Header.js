@@ -12,14 +12,30 @@ const Header = () => {
     <div className="drawer z-10">
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
-        <div className="navbar bg-base-100">
-          <div className="navbar-start">
-            <div className="dropdown">
-              <label tabIndex={0} className="btn btn-ghost lg:hidden">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
-              </label>
-              <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+        <div className='sticky top-0 left-0 w-full'>
+          <div className="navbar bg-base-100">
+            <div className="navbar-start">
+              <div className="dropdown">
+                <label tabIndex={0} className="btn btn-ghost lg:hidden">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                </label>
+                <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                  <li><Link to="/">Home</Link></li>
+                  <li><Link to="/services">Services</Link></li>
+                  <li><Link to="/orders">Orders</Link></li>
+                  {
+                    user?.uid ?
+                      <li><Link to="/blogs">My reviews</Link></li> : <></>
+                  }
+                  <li><Link to="/blogs">Blogs</Link></li>
+                </ul>
+              </div>
+              <Link className="btn btn-ghost normal-case text-2xl">Bhoj Shala</Link>
+            </div>
+            <div className="navbar-center hidden lg:flex">
+              <ul className="menu menu-horizontal font-semibold text-2xl px-1 space-x-4">
                 <li><Link to="/">Home</Link></li>
+                <li><Link to="/services">Services</Link></li>
                 <li><Link to="/orders">Orders</Link></li>
                 {
                   user?.uid ?
@@ -28,50 +44,38 @@ const Header = () => {
                 <li><Link to="/blogs">Blogs</Link></li>
               </ul>
             </div>
-            <Link className="btn btn-ghost normal-case text-2xl">Bhoj Shala</Link>
-          </div>
-          <div className="navbar-center hidden lg:flex">
-            <ul className="menu menu-horizontal font-semibold text-2xl px-1 space-x-4">
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/orders">Orders</Link></li>
-              {
-                user?.uid ?
-                  <li><Link to="/blogs">My reviews</Link></li> : <></>
-              }
-              <li><Link to="/blogs">Blogs</Link></li>
-            </ul>
-          </div>
-          <div className="navbar-end space-x-4">
-            {user?.uid ? (
-              <>
-                <div className="dropdown dropdown-hover dropdown-end">
-                  <label
-                    htmlFor="my-drawer"
-                    className="btn btn-ghost btn-circle avatar">
-                    <div className="w-12 rounded-full">
-                      <img
-                        src={
-                          user?.photoURL
-                            ? user?.photoURL
-                            : "https://i.postimg.cc/kXm44xCH/1b96ad1f07feee81fa83c877a1e350ce.png"
-                        }
-                        alt=""
-                      />
-                    </div>
-                  </label>
-                </div>
-                <button onClick={handleLogOut}>Logout</button>
-              </>
-            ) : (
-              <>
-                <Link to="/login" className="btn normal-case btn-md">
-                  Login
-                </Link>
-                <Link to="/register" className="btn normal-case btn-md">
-                  Register
-                </Link>
-              </>
-            )}
+            <div className="navbar-end space-x-4 mx-2">
+              {user?.uid ? (
+                <>
+                  <div className="dropdown dropdown-hover dropdown-end">
+                    <label
+                      htmlFor="my-drawer"
+                      className="btn btn-ghost btn-circle avatar">
+                      <div className="w-12 rounded-full">
+                        <img
+                          src={
+                            user?.photoURL
+                              ? user?.photoURL
+                              : "https://i.postimg.cc/kXm44xCH/1b96ad1f07feee81fa83c877a1e350ce.png"
+                          }
+                          alt=""
+                        />
+                      </div>
+                    </label>
+                  </div>
+                  <button className='btn btn-primary normal-case btn-md' onClick={handleLogOut}>Logout</button>
+                </>
+              ) : (
+                <>
+                  <Link to="/login" className="btn normal-case btn-md">
+                    Login
+                  </Link>
+                  <Link to="/register" className="btn normal-case btn-md">
+                    Register
+                  </Link>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>

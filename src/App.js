@@ -1,11 +1,14 @@
 import { RouterProvider } from "react-router";
-import { routes } from "./Routes/PublicRoutes/PublicRoutes";
+import { routes } from "./Routes/PublicRoutes/PublicRoute";
+import { Toaster } from "react-hot-toast";
 
 
 function App() {
   return (
-    <RouterProvider router={routes} >
-    </RouterProvider>
+    <>
+      <Toaster position="top-center" reverseOrder={false}></Toaster>
+      <RouterProvider router={routes} />
+    </>
   );
 }
 

@@ -6,7 +6,9 @@ import Main from "../../Pages/Layers/Main";
 import LogIn from "../../Pages/LogIn/LogIn";
 import Register from "../../Pages/LogIn/Register";
 import ErrorPage from "../../Pages/Shared/ErrorPage/ErrorPage";
-
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import Reviews from "../../Pages/Reviews/Reviews";
+import MyReviews from "../../Pages/Reviews/MyReviews";
 const { createBrowserRouter } = require("react-router-dom");
 
 export const routes = createBrowserRouter([
@@ -37,12 +39,19 @@ export const routes = createBrowserRouter([
       },
       {
         path: "/orders",
-        element: <Orders></Orders>,
+        element: <PrivateRoute><Orders></Orders></PrivateRoute>,
+      },
+      {
+        path: "/reviews",
+        element: <PrivateRoute><Reviews></Reviews></PrivateRoute>,
+      },
+      {
+        path: "/MyReviews",
+        element: <PrivateRoute><MyReviews></MyReviews></PrivateRoute>,
       }
     ],
   }, {
     path: "*",
     element: <ErrorPage></ErrorPage>
-
   }
 ])

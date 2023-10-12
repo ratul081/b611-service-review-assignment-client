@@ -22,7 +22,7 @@ const ServiceDetails = () => {
               Order now
             </Link>
           </div>
-          <div>
+          <div className='grid place-items-center'>
             <img
               className="object-cover w-full h-56 rounded shadow-lg sm:h-96"
               src={image}
