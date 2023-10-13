@@ -4,19 +4,19 @@ import { AuthContext } from '../../Context/AuthProvider';
 
 const Service = ({ service, handelOrder }) => {
   const { user } = useContext(AuthContext)
-  const { _id, title, image, price,rating } = service
+  const { _id, title, image, price, rating } = service
   return (
     <div className="my-4 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <div>
         <img className="rounded-t-lg w-96 object-cover h-80" src={image} alt="product" />
       </div>
-      <div className="px-5 pb-5">
-        <div >
-          <h5 style={{ minHeight: "84px" }} className="my-4 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{title}</h5>
+      <div className="px-5 pb-5 card-body">
+        <div className='mt-4 mb-3'>
+          <h5 style={{ minHeight: "74px" }} className="text-2xl font-semibold text-gray-900 dark:text-white">{title}</h5>
         </div>
         <div className="flex items-center justify-between">
-          <p className="text-3xl font-bold text-gray-900 dark:text-white">{price}</p>
-          <p className='text-xl font-bold text-gray-900 dark:text-white'>{rating.rate}</p>
+          <p className="text-3xl font-bold text-gray-900 dark:text-white"><span className='font-extrabold'>৳ </span>{price}</p>
+          <p className='text-xl font-bold text-end text-gray-900 dark:text-white'>Ratings: {rating.rate}</p>
         </div>
         <div className='flex justify-center space-x-12'>
           <Link to={`/service/${_id}`}>

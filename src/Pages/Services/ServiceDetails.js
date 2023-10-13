@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
 import { Link } from 'react-router-dom';
+import Reviews from '../Reviews/Reviews';
 
 const ServiceDetails = () => {
   const { title, description, image } = useLoaderData().data
@@ -31,10 +32,24 @@ const ServiceDetails = () => {
           </div>
         </div>
       </div>
-      <div className='mx-12 my-6'>
-        <p className='text-5xl font-semibold'>Reviews</p>
+      <div className='mx-12 my-6 '>
+        <p className='text-5xl font-semibold text-center'>Reviews</p>
         <div className='my-6'>
+          <p className='text-4xl text-center'>Give us a rating</p>
           <form onSubmit={handleSubmit(onSubmit)}>
+            <div aria-disabled className="rating rating-lg  my-4 flex justify-center">
+              {[...Array(5).keys()].map((number) => (
+
+                <input
+                  {...register("star")} type="radio"
+                  value={`${number + 1}`} className="mask mask-star-2 bg-orange-400"
+                  key={number}
+                />
+
+              ))}
+
+            </div>
+            <p className='text-3xl font-semibold my-6'>Leave some feedback</p>
             <textarea
               type="text"
               id="review"
@@ -46,6 +61,9 @@ const ServiceDetails = () => {
             <input className='my-4 btn btn-primary' type="submit" />
           </form>
         </div>
+      </div>
+      <div>
+        <Reviews></Reviews>
       </div>
     </div>
   );

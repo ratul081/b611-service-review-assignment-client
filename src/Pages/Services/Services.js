@@ -44,12 +44,12 @@ const Services = () => {
     // console.log(orderDetails);
   }
 
-  console.log(`page= ${page} size= ${size} pages= ${pages} data = ${serviceData.length}`);
+  // console.log(`page= ${page} size= ${size} pages= ${pages} data = ${serviceData.length}`);
 
   // console.log(serviceData);
   return (
     <div className='my-6 mx-12' >
-      <p className='my-12 font-bold text-2xl'>Order whatever you like</p>
+      <p className='my-12 font-bold text-5xl'>Order whatever you like</p>
       {
         (!serviceData) ? <p className='text-7xl flex justify-center m-12'>No data found</p> :
           (<>
