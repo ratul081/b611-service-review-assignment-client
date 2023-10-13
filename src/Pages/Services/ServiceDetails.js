@@ -1,14 +1,41 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
 import { Link } from 'react-router-dom';
 import Reviews from '../Reviews/Reviews';
+import { AuthContext } from '../../Context/AuthProvider';
+import toast from 'react-hot-toast';
 
 const ServiceDetails = () => {
-  const { title, description, image } = useLoaderData().data
+  const { user } = useContext(AuthContext)
+  const { _id, title, description, image } = useLoaderData().data
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = data => console.log(data);
-  console.log(errors);
+  const handelReviewSubmit = data => {
+    const { star, review } = data
+    const reviewDetails = {
+      service_name: title,
+      service_id: _id,
+      reviewed_person: `${user?.displayName ? user?.displayName : "Anonymous"}`,
+      rating: `${star ? star : "N/A"}`,
+      review_text: review
+    }
+    console.log("🚀 ~ file: ServiceDetails.js:17 ~ handelReviewSubmit ~ reviewData:", reviewDetails)
+
+    fetch("http://localhost:5000/reviews", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(reviewDetails),
+    })
+      .then((res) => res.json())
+      .then((data) =>
+        (data.data.acknowledged) ?
+          toast.success("Service added successfully") : toast.error("Something went wrong")
+      )
+
+    // console.log(data);
+  }
   return (
     <div>
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-2xl md:px-12 lg:px-4 lg:py-20">
@@ -36,7 +63,7 @@ const ServiceDetails = () => {
         <p className='text-5xl font-semibold text-center'>Reviews</p>
         <div className='my-6'>
           <p className='text-4xl text-center'>Give us a rating</p>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(handelReviewSubmit)}>
             <div aria-disabled className="rating rating-lg  my-4 flex justify-center">
               {[...Array(5).keys()].map((number) => (
 
@@ -54,9 +81,9 @@ const ServiceDetails = () => {
               type="text"
               id="review"
               {...register("review", { required: "Text field can not be empty" })}
-              className="w-full rounded-lg border-gray-200 p-3 text-lg"
+              className="textarea textarea-info w-full  rounded-lg border-gray-200 p-3 text-lg"
               placeholder="Review"
-              rows={4}
+              rows={8}
             />
             <input className='my-4 btn btn-primary' type="submit" />
           </form>

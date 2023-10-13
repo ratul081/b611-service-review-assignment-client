@@ -24,8 +24,8 @@ const Services = () => {
   const handelOrder = (id, title, user) => {
     const { displayName, email } = user
     const orderDetails = {
-      name: displayName,
-      email,
+      ordered_person: displayName,
+      ordered_persons_email: email,
       service_id: id,
       service_name: title
     }
@@ -39,7 +39,7 @@ const Services = () => {
       .then((res) => res.json())
       .then((data) =>
         (data.data.acknowledged) ?
-          toast.success("Service added successfully") : toast.error("Service")
+          toast.success("Service added successfully") : toast.error("Something went wrong")
       )
     // console.log(orderDetails);
   }
@@ -76,19 +76,22 @@ const Services = () => {
           </>)
       }
       {serviceData.length !== 0 && (
-        <div className="join flex flex-row justify-center my-3">
-          {[...Array(pages).keys()].map((number) => (
-            <button
-              key={number}
-              className="mx-2 text-lg join-item btn"
-              onClick={() => setPage(number)}>
-              {number + 1}
-            </button>
-          ))}
+        <div className="flex flex-row justify-center my-3">
+          <div className="join">
+            {[...Array(pages).keys()].map((number) => (
+              <button
+                key={number}
+                className="mx-2 text-lg join-item btn"
+                onClick={() => setPage(number)}>
+                {number + 1}
+              </button>
+            ))}
+          </div>
           <select
             defaultValue={5}
             onChange={(event) => setSize(event.target.value)}
-            className="select select-bordered">
+            style={{ appearance: "none" }}
+            className="select  border-black">
             <option value={5}>5</option>
             <option value={10}>10</option>
             <option value={15}>15</option>

@@ -82,7 +82,7 @@ const Register = () => {
                     maxLength: 100,
                   })}
 
-                  className="mt-2 w-full rounded-md border-gray-200 bg-white text-lg   text-gray-700 shadow-sm"
+                  className="input input-bordered mt-2 w-full rounded-md border-black bg-white text-lg   text-gray-700 shadow-sm"
                 />
                 {errors.firstName && (
                   <p className="text-red-600 text-lg">
@@ -105,7 +105,7 @@ const Register = () => {
                     maxLength: 100,
                   })}
 
-                  className="mt-2 w-full rounded-md border-gray-200 bg-white text-lg text-gray-700 shadow-sm"
+                  className="input input-bordered mt-2 w-full rounded-md border-black bg-white text-lg text-gray-700 shadow-sm"
                 />
                 {errors.lastName && (
                   <p className="text-red-600 text-lg">
@@ -125,7 +125,7 @@ const Register = () => {
                     pattern: /^\S+@\S+$/i,
                   })}
 
-                  className="mt-2 w-full rounded-md border-gray-200 bg-white text-lg text-gray-700 shadow-sm"
+                  className="input input-bordered mt-2 w-full rounded-md border-black bg-white text-lg text-gray-700 shadow-sm"
                 />
                 {errors.email && (
                   <p className="text-red-500 text-lg">{`${errors.email.message}`}</p>
@@ -145,7 +145,7 @@ const Register = () => {
                       message: "Password must be at least 10 characters",
                     },
                   })}
-                  className="mt-2 w-full rounded-md border-gray-200 bg-white text-lg text-gray-700 shadow-sm" />
+                  className="input input-bordered mt-2 w-full rounded-md border-black bg-white text-lg text-gray-700 shadow-sm" />
                 {errors.password && (
                   <p className="text-red-500 text-lg">{`${errors.password.message}`}</p>
                 )}
@@ -162,7 +162,7 @@ const Register = () => {
                     required: validate ? "" : "Passwords must match",
                   })}
 
-                  className="mt-2 w-full rounded-md border-gray-200 bg-white text-lg text-gray-700 shadow-sm"
+                  className="input input-bordered mt-2 w-full rounded-md border-black bg-white text-lg text-gray-700 shadow-sm"
                 />
                 {errors.passwordConfirmation && (
                   <p className="text-red-500 text-lg">{`${errors.passwordConfirmation.message}`}</p>
@@ -172,7 +172,7 @@ const Register = () => {
                 <div className='flex space-x-4'>
                   <div className="grid place-items-center">
                     <label htmlFor="MarketingAccept" className="flex gap-4">
-                      <input type="checkbox" className="h-5 w-5 grid place-items-center rounded-md border-gray-200 bg-white shadow-sm" placeholder="agree" onChange={() => setAgree(!agree)} />
+                      <input type="checkbox" className="h-5 w-5 grid place-items-center rounded-md border-black bg-white shadow-sm" placeholder="agree" onChange={() => setAgree(!agree)} />
                     </label>
                   </div>
                   <p className=" text-gray-700">

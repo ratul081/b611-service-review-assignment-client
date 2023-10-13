@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 const Orders = () => {
   const { user, logout } = useContext(AuthContext);
   const [orders, setOrders] = useState([]);
+  console.log("🚀 ~ file: Orders.js:10 ~ Orders ~ orders:", orders)
   useEffect(() => {
     const unsubscribe = () => {
       fetch(
