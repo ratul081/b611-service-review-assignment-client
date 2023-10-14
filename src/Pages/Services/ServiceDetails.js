@@ -16,8 +16,9 @@ const ServiceDetails = () => {
       service_name: title,
       service_id: _id,
       reviewed_person: `${user?.displayName ? user?.displayName : "Anonymous"}`,
-      rating: `${star ? star : "N/A"}`,
-      review_text: review
+      reviewed_person_email: `${user?.email}`,
+      rating: `${star ? star : false}`,
+      reviewed_text: review
     }
     console.log("🚀 ~ file: ServiceDetails.js:17 ~ handelReviewSubmit ~ reviewData:", reviewDetails)
 
@@ -31,7 +32,7 @@ const ServiceDetails = () => {
       .then((res) => res.json())
       .then((data) =>
         (data.data.acknowledged) ?
-          toast.success("Service added successfully") : toast.error("Something went wrong")
+          toast.success("Review sent") : toast.error("Something went wrong")
       )
 
     // console.log(data);
@@ -52,7 +53,7 @@ const ServiceDetails = () => {
           </div>
           <div className='grid place-items-center'>
             <img
-              className="object-cover w-full h-56 rounded shadow-lg sm:h-96"
+              className="object-cover w-full h-96  rounded shadow-lg"
               src={image}
               alt={title}
             />
@@ -90,7 +91,9 @@ const ServiceDetails = () => {
         </div>
       </div>
       <div>
-        <Reviews></Reviews>
+        <Reviews
+          service_id={_id}
+        ></Reviews>
       </div>
     </div>
   );

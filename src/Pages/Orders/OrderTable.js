@@ -38,7 +38,7 @@ const OrderTable = ({ order, handleDeleted }) => {
         <span className='font-bold text-2xl'>৳</span> {bookedService?.price}
       </td>
       <td className="px-6 py-4">
-        <Link onClick={() => handleDeleted(_id)} className="font-medium text-red-600 dark:text-red-500 hover:underline text-lg">Remove</Link>
+        <button onClick={() => handleDeleted(_id)} className="font-medium text-red-600 dark:text-red-500 hover:underline text-lg">Remove</button>
       </td>
     </tr>
   );
