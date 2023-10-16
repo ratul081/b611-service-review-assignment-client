@@ -25,7 +25,7 @@ const Header = () => {
                   <li><Link to="/orders">Orders</Link></li>
                   {
                     user?.uid ?
-                      <li><Link to="/blogs">My reviews</Link></li> : <></>
+                      <li><Link to="/my_reviews">My reviews</Link></li> : <></>
                   }
                   <li><Link to="/blogs">Blogs</Link></li>
                 </ul>
@@ -39,7 +39,7 @@ const Header = () => {
                 <li><Link to="/orders">Orders</Link></li>
                 {
                   user?.uid ?
-                    <li><Link to="/blogs">My reviews</Link></li> : <></>
+                    <li><Link to="/my_reviews">My reviews</Link></li> : <></>
                 }
                 <li><Link to="/blogs">Blogs</Link></li>
               </ul>

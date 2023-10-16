@@ -1,14 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
 import { Link } from 'react-router-dom';
 import Reviews from '../Reviews/Reviews';
 import { AuthContext } from '../../Context/AuthProvider';
 import toast from 'react-hot-toast';
+import { handelOrder } from './Services';
 
 const ServiceDetails = () => {
   const { user } = useContext(AuthContext)
   const { _id, title, description, image } = useLoaderData().data
+  const [refresh, setRefresh] = useState(false)
   const { register, handleSubmit, formState: { errors } } = useForm();
   const handelReviewSubmit = data => {
     const { star, review } = data
@@ -30,9 +32,11 @@ const ServiceDetails = () => {
       body: JSON.stringify(reviewDetails),
     })
       .then((res) => res.json())
-      .then((data) =>
+      .then((data) => {
         (data.data.acknowledged) ?
           toast.success("Review sent") : toast.error("Something went wrong")
+        setRefresh(!refresh)
+      }
       )
 
     // console.log(data);
@@ -46,10 +50,10 @@ const ServiceDetails = () => {
               {title}
             </h5>
             <p className="mb-6 text-gray-900 text-justify">{description}</p>
-            <Link
+            <button onClick={() => handelOrder(_id, title, user)}
               className="btn normal-case text-xl btn-accent">
               Order now
-            </Link>
+            </button>
           </div>
           <div className='grid place-items-center'>
             <img
@@ -93,6 +97,7 @@ const ServiceDetails = () => {
       <div>
         <Reviews
           service_id={_id}
+          refresh={refresh}
         ></Reviews>
       </div>
     </div>

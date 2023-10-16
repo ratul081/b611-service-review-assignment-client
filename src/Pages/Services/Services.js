@@ -2,6 +2,29 @@ import React, { useEffect, useState } from 'react';
 import Service from './Service';
 import toast from 'react-hot-toast';
 
+export const handelOrder = (id, title, user) => {
+  const { displayName, email } = user
+  const orderDetails = {
+    ordered_person: displayName,
+    ordered_persons_email: email,
+    service_id: id,
+    service_name: title
+  }
+  fetch("http://localhost:5000/orders", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(orderDetails),
+  })
+    .then((res) => res.json())
+    .then((data) =>
+      (data.data.acknowledged) ?
+        toast.success("Service added successfully") : toast.error("Something went wrong")
+    )
+  // console.log(orderDetails);
+}
+
 const Services = () => {
   const [serviceData, setServiceData] = useState([])
   const [refresh, setRefresh] = useState(false);
@@ -21,28 +44,6 @@ const Services = () => {
         setServiceData(data.data.data);
       });
   }, [page, size]);
-  const handelOrder = (id, title, user) => {
-    const { displayName, email } = user
-    const orderDetails = {
-      ordered_person: displayName,
-      ordered_persons_email: email,
-      service_id: id,
-      service_name: title
-    }
-    fetch("http://localhost:5000/orders", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(orderDetails),
-    })
-      .then((res) => res.json())
-      .then((data) =>
-        (data.data.acknowledged) ?
-          toast.success("Service added successfully") : toast.error("Something went wrong")
-      )
-    // console.log(orderDetails);
-  }
 
   // console.log(`page= ${page} size= ${size} pages= ${pages} data = ${serviceData.length}`);
 
@@ -51,31 +52,32 @@ const Services = () => {
     <div className='my-6 mx-12' >
       <p className='my-12 font-bold text-5xl'>Order whatever you like</p>
       {
-        (!serviceData) ? <p className='text-7xl flex justify-center m-12'>No data found</p> :
-          (<>
-            {refresh ? (<>
-              <div className='lg:mx-24 grid md:grid-cols-2 lg:grid-cols-3 gap-8 place-items-center'>
-                {
-                  serviceData.map((service, index) =>
-                    <Service
-                      key={index}
-                      service={service}
-                      handelOrder={handelOrder}
-                    ></Service>
-                  )
-                }
-              </div>
-            </>)
+        (refresh) ?
+          <>
+            {(serviceData.length === 0) ?
+              <p className='text-7xl flex justify-center items-center m-12 h-96'>No data found</p>
               :
-              (
-                <div className="flex justify-center items-center min-h-screen">
-                  <span className="text-5xl loading loading-spinner loading-lg"></span>
+              <>
+                <div className='lg:mx-24 grid md:grid-cols-2 lg:grid-cols-3 gap-8 place-items-center'>
+                  {
+                    serviceData.map((service, index) =>
+                      <Service
+                        key={index}
+                        service={service}
+                        handelOrder={handelOrder}
+                      ></Service>
+                    )
+                  }
                 </div>
-              )
+              </>
             }
-          </>)
+          </>
+          :
+          <div className="flex justify-center items-center h-96">
+            <span className="text-5xl loading loading-spinner loading-lg"></span>
+          </div>
       }
-      {serviceData.length !== 0 && (
+      {(serviceData.length !== 0) && (
         <div className="flex flex-row justify-center my-3">
           <div className="join">
             {[...Array(pages).keys()].map((number) => (
