@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
-import { Link } from 'react-router-dom';
 import Reviews from '../Reviews/Reviews';
 import { AuthContext } from '../../Context/AuthProvider';
 import toast from 'react-hot-toast';
@@ -18,7 +17,7 @@ const ServiceDetails = () => {
       service_name: title,
       service_id: _id,
       reviewed_person: `${user?.displayName ? user?.displayName : "Anonymous"}`,
-      reviewed_person_email: `${user?.email}`,
+      reviewed_persons_email: `${user?.email}`,
       rating: `${star ? star : false}`,
       reviewed_text: review
     }
@@ -42,7 +41,7 @@ const ServiceDetails = () => {
     // console.log(data);
   }
   return (
-    <div>
+    <>
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-2xl md:px-12 lg:px-4 lg:py-20">
         <div className="grid gap-8 lg:grid-cols-2">
           <div className="lg:pr-10 lg:mt-10">
@@ -63,44 +62,45 @@ const ServiceDetails = () => {
             />
           </div>
         </div>
-      </div>
-      <div className='mx-12 my-6 '>
-        <p className='text-5xl font-semibold text-center'>Reviews</p>
-        <div className='my-6'>
-          <p className='text-4xl text-center'>Give us a rating</p>
-          <form onSubmit={handleSubmit(handelReviewSubmit)}>
-            <div aria-disabled className="rating rating-lg  my-4 flex justify-center">
-              {[...Array(5).keys()].map((number) => (
+        <div className='mx-12 my-6 '>
+          <p className='text-5xl font-semibold text-center'>Reviews</p>
+          <div className='my-6'>
+            <p className='text-4xl text-center'>Give us a rating</p>
+            <form onSubmit={handleSubmit(handelReviewSubmit)}>
+              <div aria-disabled className="rating rating-lg  my-4 flex justify-center">
+                {[...Array(5).keys()].map((number) => (
+                  <input
+                    {...register("star")} type="radio"
+                    value={`${number + 1}`} className="mask mask-star-2 bg-orange-400"
+                    key={number}
+                  />
+                ))}
 
-                <input
-                  {...register("star")} type="radio"
-                  value={`${number + 1}`} className="mask mask-star-2 bg-orange-400"
-                  key={number}
-                />
-
-              ))}
-
-            </div>
-            <p className='text-3xl font-semibold my-6'>Leave some feedback</p>
-            <textarea
-              type="text"
-              id="review"
-              {...register("review", { required: "Text field can not be empty" })}
-              className="textarea textarea-info w-full  rounded-lg border-gray-200 p-3 text-lg"
-              placeholder="Review"
-              rows={8}
-            />
-            <input className='my-4 btn btn-primary' type="submit" />
-          </form>
+              </div>
+              <p className='text-3xl font-semibold my-6'>Share your thoughts with us</p>
+              <textarea
+                type="text"
+                id="review"
+                {...register("review", { required: "Text field can not be empty" })}
+                className="textarea textarea-info w-full  rounded-lg border-gray-200 p-3 text-lg"
+                placeholder="Review"
+                rows={8}
+              />
+              {errors.review && (
+                <p className="text-red-600 text-lg mt-1">
+                  {errors.review.message}
+                </p>
+              )}
+              <input className='my-4 btn btn-primary' type="submit" />
+            </form>
+          </div>
         </div>
-      </div>
-      <div>
         <Reviews
           service_id={_id}
           refresh={refresh}
         ></Reviews>
       </div>
-    </div>
+    </>
   );
 };
 

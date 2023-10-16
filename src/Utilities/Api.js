@@ -1,4 +1,3 @@
-
 export const setAuthToken = (user) => {
   const currentUser = {
     email: user.email,
@@ -12,9 +11,5 @@ export const setAuthToken = (user) => {
     body: JSON.stringify(currentUser),
   })
     .then((res) => res.json())
-    .then((data) =>
-      {
-        console.log(data);
-        localStorage.setItem("b611ServiceAssignmentToken", data.token)  }
-    );
+    .then((data) => localStorage.setItem("b611ServiceAssignmentToken", data.token));
 }

@@ -13,8 +13,10 @@ const Reviews = ({ service_id, refresh }) => {
       return unsubscribe()
     }
   }, [service_id, refresh]);
-  console.log(reviews);
-  const value = 0;
+
+  const rating = reviews.map((review) => review.rating)
+  console.log("🚀 ~ file: Reviews.js:18 ~ Reviews ~ rating:", rating)
+
   return (
     <section className="bg-gray-50">
       <div className="mx-auto max-w-screen-2xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
@@ -33,7 +35,7 @@ const Reviews = ({ service_id, refresh }) => {
           <a
             href=" "
             className="mt-6 inline-flex shrink-0 items-center gap-2 rounded-full border border-rose-600 px-5 py-3 text-rose-600 transition hover:bg-rose-600 hover:text-white md:mt-0">
-            <span className="font-medium"> Read all reviews </span>
+            <span className="font-medium">Read all reviews</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-4 w-4 rtl:rotate-180"
@@ -61,16 +63,11 @@ const Reviews = ({ service_id, refresh }) => {
                   className="h-14 w-14 rounded-full object-cover"
                 />
                 <div>
-                  {
-                    (review?.rating === "false") ?
-                      <>No rating</>
-                      :
-                      <div aria-disabled className="rating rating-md">
-                        {
-                          <Star value={parseInt(review?.rating)}></Star>
-                        }
-                      </div>
-                  }
+                  <div aria-disabled className="rating rating-md">
+                    {
+                      <Star rating={review?.rating}></Star>
+                    }
+                  </div>
                   <p className="mt-0.5 text-lg font-medium text-gray-900">
                     {review?.reviewed_person}
                   </p>

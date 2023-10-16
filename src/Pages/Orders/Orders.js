@@ -5,10 +5,10 @@ import OrderTable from "./OrderTable";
 import { Link } from "react-router-dom";
 
 const Orders = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   const [orders, setOrders] = useState([]);
   const [refresh, setRefresh] = useState(false);
-  console.log("🚀 ~ file: Orders.js:10 ~ Orders ~ orders:", orders);
+
   useEffect(() => {
     const unsubscribe = () => {
       fetch(`http://localhost:5000/orders?email=${user.email}`, {
@@ -18,7 +18,12 @@ const Orders = () => {
           )}`,
         },
       })
-        .then((res) => res.json())
+        .then((res) => {
+          if (res.status === 403 || res.status === 401) {
+            logOut()
+          }
+          return res.json();
+        })
         .then((data) => {
           setRefresh(true)
           setOrders(data.data ? data.data : [])
@@ -28,6 +33,7 @@ const Orders = () => {
       return unsubscribe();
     };
   }, [user?.email]);
+
   const handleDeleted = (id) => {
     const proceed = window.confirm("Are you sure you want to delete");
     if (proceed) {
@@ -36,7 +42,7 @@ const Orders = () => {
       })
         .then((res) => {
           if (res.status === 401 || res.status === 403) {
-            logout();
+            logOut();
           }
           return res.json();
         })
@@ -50,7 +56,7 @@ const Orders = () => {
         });
     }
   };
-  console.log(orders.length);
+
   return (
     <section>
       <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
@@ -110,19 +116,21 @@ const Orders = () => {
                             <dl className="space-y-0.5 text-sm text-gray-700">
                               <div className="flex justify-between text-lg">
                                 <dt>Subtotal</dt>
-                                <dd>£250</dd>
+                                <dd>
+                                  $250
+                                </dd>
                               </div>
                               <div className="flex justify-between text-lg">
                                 <dt>VAT</dt>
-                                <dd>£25</dd>
+                                <dd>$25</dd>
                               </div>
                               <div className="flex justify-between text-lg">
                                 <dt>Discount</dt>
-                                <dd>-£20</dd>
+                                <dd>-$20</dd>
                               </div>
                               <div className="flex justify-between text-base font-medium">
                                 <dt>Total</dt>
-                                <dd>£200</dd>
+                                <dd>$200</dd>
                               </div>
                             </dl>
                             <div className="flex justify-end">
@@ -165,7 +173,6 @@ const Orders = () => {
                 <span className="text-5xl loading loading-spinner loading-lg"></span>
               </div>
           }
-
         </div>
       </div >
     </section >
