@@ -7,8 +7,13 @@ import LogIn from "../../Pages/LogIn/LogIn";
 import Register from "../../Pages/LogIn/Register";
 import ErrorPage from "../../Pages/Shared/ErrorPage/ErrorPage";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
-import MyReviews from "../../Pages/Reviews/MyReviews";
+import MyReviews from "../../MyReviews/MyReviews";
+import Blog from "../../Pages/Shared/Blog/Blog";
+
+
 const { createBrowserRouter } = require("react-router-dom");
+
+
 
 export const routes = createBrowserRouter([
   {
@@ -35,6 +40,10 @@ export const routes = createBrowserRouter([
       {
         path: "/register",
         element: <Register></Register>,
+      },
+      {
+        path: "/blogs",
+        element: <Blog></Blog>,
       },
       {
         path: "/orders",

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider';
 
 const Header = () => {
@@ -19,28 +19,60 @@ const Header = () => {
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                 </label>
                 <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                  <li><Link to="/">Home</Link></li>
-                  <li><Link to="/services">Services</Link></li>
-                  <li><Link to="/orders">Orders</Link></li>
+                  <li><NavLink
+                    className={({ isActive, isPending }) =>
+                      isPending ? "pending" : isActive ? "text-orange-600" : ""
+                    }
+                    to="/">Home</NavLink></li>
+                  <li><NavLink
+                    className={({ isActive, isPending }) =>
+                      isPending ? "pending" : isActive ? "text-orange-600" : ""
+                    }
+                    to="/services">Services</NavLink></li>
+                  <li><NavLink
+                    className={({ isActive, isPending }) =>
+                      isPending ? "pending" : isActive ? "text-orange-600" : ""
+                    }
+                    to="/orders">Orders</NavLink></li>
                   {
                     user?.uid ?
-                      <li><Link to="/my_reviews">My reviews</Link></li> : <></>
+                      <li><NavLink to="/my_reviews">My reviews</NavLink></li> : <></>
                   }
-                  <li><Link to="/blogs">Blogs</Link></li>
+                  <li><NavLink to="/blogs">Blogs</NavLink></li>
                 </ul>
               </div>
               <Link className="btn btn-ghost normal-case text-2xl">Bhoj Shala</Link>
             </div>
             <div className="navbar-center hidden lg:flex">
-              <ul className="menu menu-horizontal font-semibold text-2xl px-1 space-x-4">
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/services">Services</Link></li>
-                <li><Link to="/orders">Orders</Link></li>
+              <ul className="menu-horizontal font-semibold px-2 lg:text-2xl md:text-xl text-sm lg:gap-12 md:gap-8 gap-3">
+                <li><NavLink
+                  className={({ isActive, isPending }) =>
+                    isPending ? "pending" : isActive ? "rounded  p-2 text-2xl text-orange-600" : ""
+                  }
+                  to="/">Home</NavLink></li>
+                <li><NavLink
+                  className={({ isActive, isPending }) =>
+                    isPending ? "pending" : isActive ? "rounded  p-2 text-2xl text-orange-600" : ""
+                  }
+                  to="/services">Services</NavLink></li>
+                <li><NavLink
+                  className={({ isActive, isPending }) =>
+                    isPending ? "pending" : isActive ? "rounded  p-2 text-2xl text-orange-600" : ""
+                  }
+                  to="/orders">Orders</NavLink></li>
                 {
                   user?.uid ?
-                    <li><Link to="/my_reviews">My reviews</Link></li> : <></>
+                    <li><NavLink
+                      className={({ isActive, isPending }) =>
+                        isPending ? "pending" : isActive ? "rounded  p-2 text-2xl text-orange-600" : ""
+                      }
+                      to="/my_reviews">My reviews</NavLink></li> : <></>
                 }
-                <li><Link to="/blogs">Blogs</Link></li>
+                <li><NavLink
+                  className={({ isActive, isPending }) =>
+                    isPending ? "pending" : isActive ? "rounded  p-2 text-2xl text-orange-600" : ""
+                  }
+                  to="/blogs">Blogs</NavLink></li>
               </ul>
             </div>
             <div className="navbar-end space-x-4 mx-2">
@@ -66,10 +98,18 @@ const Header = () => {
                 </>
               ) : (
                 <>
-                  <Link to="/login" className="btn normal-case btn-md">
+                  <Link
+                    className={({ isActive, isPending }) =>
+                      isPending ? "pending" : isActive ? "text-orange-600 btn normal-case btn-md" : "btn normal-case btn-md"
+                    }
+                    to="/login">
                     Login
                   </Link>
-                  <Link to="/register" className="btn normal-case btn-md">
+                  <Link
+                    className={({ isActive, isPending }) =>
+                      isPending ? "pending" : isActive ? "text-orange-600 btn normal-case btn-md" : "btn normal-case btn-md"
+                    }
+                    to="/register">
                     Register
                   </Link>
                 </>
@@ -135,7 +175,9 @@ const Header = () => {
                   </svg>
                   <span className="mx-4 font-medium">Profile</span>
                 </Link>
-                <Link to="/orders"
+                <Link
+
+                  to="/orders"
                   className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700">
                   <svg
                     className="w-5 h-5"
@@ -153,6 +195,8 @@ const Header = () => {
                   <span className="mx-4 font-medium">My review</span>
                 </Link>
                 <Link
+
+
                   to="/orders"
                   className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
                   href="#">
@@ -173,6 +217,7 @@ const Header = () => {
                 </Link>
 
                 <Link
+
                   className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
                   href=" ">
                   <svg

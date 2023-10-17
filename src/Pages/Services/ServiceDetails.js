@@ -5,6 +5,7 @@ import Reviews from '../Reviews/Reviews';
 import { AuthContext } from '../../Context/AuthProvider';
 import toast from 'react-hot-toast';
 import { handelOrder } from './Services';
+import { Link } from 'react-router-dom';
 
 const ServiceDetails = () => {
   const { user } = useContext(AuthContext)
@@ -18,7 +19,7 @@ const ServiceDetails = () => {
       service_id: _id,
       reviewed_person: `${user?.displayName ? user?.displayName : "Anonymous"}`,
       reviewed_persons_email: `${user?.email}`,
-      rating: `${star ? star : false}`,
+      rating: `${star ? star : 0}`,
       reviewed_text: review
     }
     console.log("🚀 ~ file: ServiceDetails.js:17 ~ handelReviewSubmit ~ reviewData:", reviewDetails)
@@ -65,34 +66,40 @@ const ServiceDetails = () => {
         <div className='mx-12 my-6 '>
           <p className='text-5xl font-semibold text-center'>Reviews</p>
           <div className='my-6'>
-            <p className='text-4xl text-center'>Give us a rating</p>
-            <form onSubmit={handleSubmit(handelReviewSubmit)}>
-              <div aria-disabled className="rating rating-lg  my-4 flex justify-center">
-                {[...Array(5).keys()].map((number) => (
-                  <input
-                    {...register("star")} type="radio"
-                    value={`${number + 1}`} className="mask mask-star-2 bg-orange-400"
-                    key={number}
+            {
+              user && user?.uid ?
+                <form onSubmit={handleSubmit(handelReviewSubmit)}>
+                  <p className='text-4xl text-center'>Give us a rating</p>
+                  <div aria-disabled className="rating rating-lg  my-4 flex justify-center">
+                    {[...Array(5).keys()].map((number) => (
+                      <input
+                        {...register("star")} type="radio"
+                        value={`${number + 1}`} className="mask mask-star-2 bg-orange-400"
+                        key={number}
+                      />
+                    ))}
+                  </div>
+                  <p className='text-3xl font-semibold my-6'>Share your thoughts with us</p>
+                  <textarea
+                    type="text"
+                    id="review"
+                    {...register("review", { required: "Text field can not be empty" })}
+                    className="textarea textarea-info w-full  rounded-lg border-gray-200 p-3 text-lg"
+                    placeholder="Review"
+                    rows={8}
                   />
-                ))}
-
-              </div>
-              <p className='text-3xl font-semibold my-6'>Share your thoughts with us</p>
-              <textarea
-                type="text"
-                id="review"
-                {...register("review", { required: "Text field can not be empty" })}
-                className="textarea textarea-info w-full  rounded-lg border-gray-200 p-3 text-lg"
-                placeholder="Review"
-                rows={8}
-              />
-              {errors.review && (
-                <p className="text-red-600 text-lg mt-1">
-                  {errors.review.message}
-                </p>
-              )}
-              <input className='my-4 btn btn-primary' type="submit" />
-            </form>
+                  {errors.review && (
+                    <p className="text-red-600 text-lg mt-1">
+                      {errors.review.message}
+                    </p>
+                  )}
+                  <input className='my-4 btn btn-primary' type="submit" />
+                </form>
+                :
+                <div className='grid place-items-center my-10 text-4xl text-red-600'>
+                  <Link to="/login">Please log in to review</Link>
+                </div>
+            }
           </div>
         </div>
         <Reviews
