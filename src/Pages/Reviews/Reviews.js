@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Star from "./Star";
-import { render } from "@testing-library/react";
 
 const Reviews = ({ service_id, refresh }) => {
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
     const unsubscribe = () => {
-      fetch(`http://localhost:5000/reviews?service_id=${service_id}`)
+      fetch(`https://service-review-assignment-server-nine.vercel.app/reviews?service_id=${service_id}`)
         .then((res) => res.json())
         .then((data) => setReviews(data.data));
     }
@@ -14,10 +13,6 @@ const Reviews = ({ service_id, refresh }) => {
       return unsubscribe()
     }
   }, [service_id, refresh]);
-
-  const rating = reviews.map((review) => review.rating)
-  console.log("🚀 ~ file: Reviews.js:18 ~ Reviews ~ rating:", rating)
-
   return (
     <>
       {

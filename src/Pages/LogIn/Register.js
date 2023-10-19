@@ -4,8 +4,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 import toast from 'react-hot-toast';
 import { setAuthToken } from '../../Utilities/Api';
+import useTitle from '../../hooks/useTitle';
 
 const Register = () => {
+  useTitle("Register");
   const { createUser, updateUserProfile } = useContext(AuthContext);
   const [agree, setAgree] = useState(false)
   const {

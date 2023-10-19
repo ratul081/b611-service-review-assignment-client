@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { BiEdit } from "react-icons/bi";
 import { useForm } from 'react-hook-form';
 import Star from '../Pages/Reviews/Star';
+import { BsTrashFill } from 'react-icons/bs';
 
 
 
-const MyReviewBox = ({ myReview, handelUpdated }) => {
+const MyReviewBox = ({ myReview, handelUpdated, handleDeleted }) => {
   const [show, setShow] = useState(true);
   const [editReview, setReviewEdit] = useState("");
   const viewEditBox = (myReview) => {
@@ -29,6 +30,7 @@ const MyReviewBox = ({ myReview, handelUpdated }) => {
       }
     }
     handelUpdated(myReview, updatedData)
+    setReviewEdit(" ")
     // console.log("🚀 ~ file: MyReviews.js:56 ~ onSubmit ~ updatedData:", updatedData)
   }
   // console.log(errors);
@@ -38,8 +40,9 @@ const MyReviewBox = ({ myReview, handelUpdated }) => {
         className="rounded-lg bg-gray-50 mx-24 mt-4 mb-4 p-6 border-2 border-rose-600 shadow-sm sm:p-8 relative">
         <div>
           <p className='text-2xl mb-4'>Reviewed Service: <span className='font-semibold '>{myReview?.service_name}</span></p>
-          <div className="absolute right-5 top-5 text-4xl ">
+          <div className="absolute right-5 top-5 text-4xl space-x-2">
             <button onClick={() => viewEditBox(myReview)}><BiEdit /></button>
+            <button onClick={() => handleDeleted(myReview._id)} ><BsTrashFill /></button>
           </div>
           <div className="flex items-center gap-4">
             <img
@@ -61,6 +64,7 @@ const MyReviewBox = ({ myReview, handelUpdated }) => {
           <p className="mt-4 text-gray-700">
             {myReview?.reviewed_text}
           </p>
+
         </div>
       </div>
       <div className='mx-24  p-6'>
@@ -88,6 +92,11 @@ const MyReviewBox = ({ myReview, handelUpdated }) => {
                   placeholder="Review"
                   rows={4}
                 />
+                {errors.review && (
+                  <p className="text-red-600 text-lg mt-1 mb-2">
+                    {errors.review.message}
+                  </p>
+                )}
                 <button className='btn btn-warning normal-case text-lg' type="submit">Save</button>
               </form>
             )

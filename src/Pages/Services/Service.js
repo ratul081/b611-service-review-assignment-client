@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
+import { PhotoView } from 'react-photo-view';
 
 const Service = ({ service, handelOrder }) => {
   const { user } = useContext(AuthContext)
@@ -8,7 +9,9 @@ const Service = ({ service, handelOrder }) => {
   return (
     <div className="my-4 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <div>
-        <img className="rounded-t-lg w-96 object-cover h-80" src={image} alt="product" />
+        <PhotoView src={image} >
+          <img className="rounded-t-lg w-96 object-cover h-80" src={image} alt="product" />
+        </PhotoView>
       </div>
       <div className="px-5 pb-5 card-body">
         <div className='mt-4 mb-3'>

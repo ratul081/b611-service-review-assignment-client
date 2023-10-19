@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 const Cards = ({ data }) => {
   const { title, details, image } = data
   return (

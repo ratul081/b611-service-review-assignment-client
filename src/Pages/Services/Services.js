@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Service from './Service';
 import toast from 'react-hot-toast';
+import useTitle from '../../hooks/useTitle';
 
 export const handelOrder = (id, title, user) => {
+  if (!(user && user.uid)) {
+    return alert("Please login first")
+  }
   const { displayName, email } = user
   const orderDetails = {
     ordered_person: displayName,
@@ -10,7 +14,7 @@ export const handelOrder = (id, title, user) => {
     service_id: id,
     service_name: title
   }
-  fetch("http://localhost:5000/orders", {
+  fetch("https://service-review-assignment-server-nine.vercel.app/orders", {
     method: "POST",
     headers: {
       "content-type": "application/json",
@@ -26,6 +30,7 @@ export const handelOrder = (id, title, user) => {
 }
 
 const Services = () => {
+  useTitle("Services");
   const [serviceData, setServiceData] = useState([])
   const [refresh, setRefresh] = useState(false);
   const [page, setPage] = useState(0);
@@ -33,14 +38,16 @@ const Services = () => {
   const [count, setCount] = useState(0);
   const pages = Math.ceil(count / size);
   useEffect(() => {
-    const url = `http://localhost:5000/services?page=${page}&size=${size}`;
+    const url = `https://service-review-assignment-server-nine.vercel.app/services?page=${page}&size=${size}`;
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
         // console.log("🚀 ~ file: Home.jsx:26 ~ .then ~ data:", data.data.data)
-        setCount(data.data.count);
-        setRefresh(true);
-        setServiceData(data.data.data);
+        if (data.status) {
+          setCount(data.data.count);
+          setRefresh(true);
+          setServiceData(data.data.data);
+        }
       });
   }, [page, size]);
 
@@ -49,14 +56,14 @@ const Services = () => {
   // console.log(serviceData);
   return (
     <div className='my-6 mx-12' >
-      <p className='my-12 font-bold text-5xl'>Order whatever you like</p>
       {
         (refresh) ?
           <>
             {(serviceData.length === 0) ?
-              <p className='text-7xl flex justify-center items-center m-12 h-96'>No data found</p>
+              <p className='text-7xl flex justify-center items-center mx-12 mt-60 h-96'>No data found</p>
               :
               <>
+                <p className='my-12 font-bold text-5xl'>Order whatever you like</p>
                 <div className='lg:mx-24 grid md:grid-cols-2 lg:grid-cols-3 gap-8 place-items-center'>
                   {
                     serviceData.map((service, index) =>

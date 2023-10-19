@@ -10,7 +10,7 @@ const OrderTable = ({ order, handleDeleted }) => {
   useEffect(() => {
     const unsubscribe = () => {
       fetch(
-        `http://localhost:5000/service/${service_id}`
+        `https://service-review-assignment-server-nine.vercel.app/service/${service_id}`
       )
         .then((res) => res.json())
         .then((data) => setBookedService(data.data));

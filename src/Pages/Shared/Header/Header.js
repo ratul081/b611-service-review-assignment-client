@@ -99,16 +99,12 @@ const Header = () => {
               ) : (
                 <>
                   <Link
-                    className={({ isActive, isPending }) =>
-                      isPending ? "pending" : isActive ? "text-orange-600 btn normal-case btn-md" : "btn normal-case btn-md"
-                    }
+                    className='btn btn-primary normal-case btn-md'
                     to="/login">
                     Login
                   </Link>
                   <Link
-                    className={({ isActive, isPending }) =>
-                      isPending ? "pending" : isActive ? "text-orange-600 btn normal-case btn-md" : "btn normal-case btn-md"
-                    }
+                    className='btn btn-primary normal-case btn-md'
                     to="/register">
                     Register
                   </Link>

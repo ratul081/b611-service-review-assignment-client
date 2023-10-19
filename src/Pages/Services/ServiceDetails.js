@@ -6,6 +6,7 @@ import { AuthContext } from '../../Context/AuthProvider';
 import toast from 'react-hot-toast';
 import { handelOrder } from './Services';
 import { Link } from 'react-router-dom';
+import { PhotoView } from 'react-photo-view';
 
 const ServiceDetails = () => {
   const { user } = useContext(AuthContext)
@@ -24,7 +25,7 @@ const ServiceDetails = () => {
     }
     console.log("🚀 ~ file: ServiceDetails.js:17 ~ handelReviewSubmit ~ reviewData:", reviewDetails)
 
-    fetch("http://localhost:5000/reviews", {
+    fetch("https://service-review-assignment-server-nine.vercel.app/reviews", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -56,11 +57,13 @@ const ServiceDetails = () => {
             </button>
           </div>
           <div className='grid place-items-center'>
-            <img
-              className="object-cover w-full h-96  rounded shadow-lg"
-              src={image}
-              alt={title}
-            />
+            <PhotoView src={image} >
+              <img
+                className="object-cover w-full h-96  rounded shadow-lg"
+                src={image}
+                alt={title}
+              />
+            </PhotoView>
           </div>
         </div>
         <div className='mx-12 my-6 '>

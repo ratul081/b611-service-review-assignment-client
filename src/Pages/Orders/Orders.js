@@ -3,41 +3,38 @@ import toast from "react-hot-toast";
 import { AuthContext } from "../../Context/AuthProvider";
 import OrderTable from "./OrderTable";
 import { Link } from "react-router-dom";
+import useTitle from "../../hooks/useTitle";
 
 const Orders = () => {
+  useTitle("Orders");
   const { user, logOut } = useContext(AuthContext);
   const [orders, setOrders] = useState([]);
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = () => {
-      fetch(`http://localhost:5000/orders?email=${user.email}`, {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem(
-            "b611ServiceAssignmentToken"
-          )}`,
-        },
+    fetch(`https://service-review-assignment-server-nine.vercel.app/orders?email=${user.email}`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem(
+          "b611ServiceAssignmentToken"
+        )}`,
+      },
+    })
+      .then((res) => {
+        if (res.status === 403 || res.status === 401) {
+          logOut()
+        }
+        return res.json();
       })
-        .then((res) => {
-          if (res.status === 403 || res.status === 401) {
-            logOut()
-          }
-          return res.json();
-        })
-        .then((data) => {
-          setRefresh(true)
-          setOrders(data.data ? data.data : [])
-        });
-    };
-    return () => {
-      return unsubscribe();
-    };
+      .then((data) => {
+        setRefresh(true)
+        setOrders(data.data ? data.data : [])
+      });
   }, [user?.email]);
 
   const handleDeleted = (id) => {
     const proceed = window.confirm("Are you sure you want to delete");
     if (proceed) {
-      fetch(`http://localhost:5000/orders/${id}`, {
+      fetch(`https://service-review-assignment-server-nine.vercel.app/orders/${id}`, {
         method: "DELETE",
       })
         .then((res) => {
@@ -66,7 +63,7 @@ const Orders = () => {
               <>
                 {
                   (orders.length === 0) ?
-                    <div className="flex flex-col justify-center  m-12 text-center">
+                    <div className="flex flex-col justify-center  mx-12 mt-36 text-center">
                       <p className="text-7xl">No orders found</p>
                       <p className="text-2xl my-4">
                         Didn't Order anything?

@@ -3,15 +3,23 @@ import './home.css'
 import Cards from './Cards';
 import { Link } from 'react-router-dom';
 import Carousel from './Carousel';
-
+import useTitle from '../../hooks/useTitle';
 
 const Home = () => {
-
   const [services, setServices] = useState([])
+  useTitle("Home");
   useEffect(() => {
-    fetch("http://localhost:5000/services_home")
-      .then(res => res.json())
-      .then(data => setServices(data.data))
+    const unsubscribe = () => {
+      fetch("https://service-review-assignment-server-nine.vercel.app/services_home")
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+          if (data.status) {
+            setServices(data.data)
+          }
+        })
+    }
+    return unsubscribe()
   }, [])
 
 
@@ -49,10 +57,10 @@ const Home = () => {
         <h1 className='text-center text-5xl font-semibold my-14' >Explore our bests</h1>
         <div className='flex justify-center gap-4 mx-28'>
           {
-            services.map((data, index) => <Cards
+            (services.length > 0) && (services.map((data, index) => <Cards
               key={index}
               data={data}
-            ></Cards>)
+            ></Cards>))
           }
         </div>
         <div className='flex justify-center'>

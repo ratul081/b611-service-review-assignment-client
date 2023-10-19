@@ -5,6 +5,7 @@ import { AuthContext } from '../../Context/AuthProvider';
 import toast from 'react-hot-toast';
 import { GoogleAuthProvider } from 'firebase/auth';
 import { setAuthToken } from '../../Utilities/Api';
+import useTitle from '../../hooks/useTitle';
 
 const LogIn = () => {
   const [error, setError] = useState("");
@@ -13,6 +14,7 @@ const LogIn = () => {
   const location = useLocation();
   const from = location?.state?.from?.pathname || "/";
   const googleProvider = new GoogleAuthProvider();
+  useTitle("Login");
   const {
     register,
     handleSubmit,
