@@ -4,21 +4,16 @@ import Star from "./Star";
 const Reviews = ({ service_id, refresh }) => {
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
-    const unsubscribe = () => {
-      fetch(`https://service-review-assignment-server-nine.vercel.app/reviews?service_id=${service_id}`)
-        .then((res) => res.json())
-        .then((data) => setReviews(data.data));
-    }
-    return () => {
-      return unsubscribe()
-    }
+    fetch(`https://service-review-assignment-server-nine.vercel.app/reviews?service_id=${service_id}`)
+      .then((res) => res.json())
+      .then((data) => setReviews(data.data));
   }, [service_id, refresh]);
   return (
     <>
       {
         (reviews.length === 0) ?
           <>
-            <p className='text-5xl flex justify-center items-center m-12'>No reviews found</p>
+            <p className='text-2xl lg:text-5xl flex justify-center items-center'>No reviews found</p>
           </>
           :
           <section className="bg-gray-50">

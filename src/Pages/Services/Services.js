@@ -37,6 +37,7 @@ const Services = () => {
   const [size, setSize] = useState(5);
   const [count, setCount] = useState(0);
   const pages = Math.ceil(count / size);
+
   useEffect(() => {
     const url = `https://service-review-assignment-server-nine.vercel.app/services?page=${page}&size=${size}`;
     fetch(url)
@@ -53,9 +54,9 @@ const Services = () => {
 
   // console.log(`page= ${page} size= ${size} pages= ${pages} data = ${serviceData.length}`);
 
-  // console.log(serviceData);
+  console.log(serviceData);
   return (
-    <div className='my-6 mx-12' >
+    <div className='my-6 mx-8 lg:mx-12' >
       {
         (refresh) ?
           <>
@@ -63,7 +64,7 @@ const Services = () => {
               <p className='text-7xl flex justify-center items-center mx-12 mt-60 h-96'>No data found</p>
               :
               <>
-                <p className='my-12 font-bold text-5xl'>Order whatever you like</p>
+                <p className='my-12 font-bold text-4xl lg:text-5xl'>Order whatever you like</p>
                 <div className='lg:mx-24 grid md:grid-cols-2 lg:grid-cols-3 gap-8 place-items-center'>
                   {
                     serviceData.map((service, index) =>
@@ -83,13 +84,14 @@ const Services = () => {
             <span className="text-5xl loading loading-spinner loading-lg"></span>
           </div>
       }
+
       {(serviceData.length !== 0) && (
         <div className="flex flex-row justify-center my-3">
           <div className="join">
             {[...Array(pages).keys()].map((number) => (
               <button
                 key={number}
-                className="mx-2 text-lg join-item btn"
+                className="lg:mx-2 border border-slate-700	 bg-slate-200 lg:text-lg join-item btn"
                 onClick={() => setPage(number)}>
                 {number + 1}
               </button>
@@ -99,7 +101,7 @@ const Services = () => {
             defaultValue={5}
             onChange={(event) => setSize(event.target.value)}
             style={{ appearance: "none" }}
-            className="select  border-black">
+            className="select appearance-none border-black">
             <option value={5}>5</option>
             <option value={10}>10</option>
             <option value={15}>15</option>

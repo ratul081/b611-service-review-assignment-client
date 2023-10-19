@@ -41,7 +41,7 @@ const Header = () => {
                   <li><NavLink to="/blogs">Blogs</NavLink></li>
                 </ul>
               </div>
-              <Link className="btn btn-ghost normal-case text-2xl">Bhoj Shala</Link>
+              <Link className="btn btn-ghost normal-case text-lg lg:text-2xl">Bhoj Shala</Link>
             </div>
             <div className="navbar-center hidden lg:flex">
               <ul className="menu-horizontal font-semibold px-2 lg:text-2xl md:text-xl text-sm lg:gap-12 md:gap-8 gap-3">
@@ -99,12 +99,12 @@ const Header = () => {
               ) : (
                 <>
                   <Link
-                    className='btn btn-primary normal-case btn-md'
+                    className='btn btn-primary normal-case btn-sm lg:btn-md'
                     to="/login">
                     Login
                   </Link>
                   <Link
-                    className='btn btn-primary normal-case btn-md'
+                    className='btn btn-primary normal-case btn-sm lg:btn-md'
                     to="/register">
                     Register
                   </Link>
@@ -173,7 +173,7 @@ const Header = () => {
                 </Link>
                 <Link
 
-                  to="/orders"
+                  to="/my_reviews"
                   className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700">
                   <svg
                     className="w-5 h-5"

@@ -12,6 +12,7 @@ const Orders = () => {
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
+
     fetch(`https://service-review-assignment-server-nine.vercel.app/orders?email=${user.email}`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem(
@@ -29,7 +30,7 @@ const Orders = () => {
         setRefresh(true)
         setOrders(data.data ? data.data : [])
       });
-  }, [user?.email]);
+  }, [user?.email, logOut]);
 
   const handleDeleted = (id) => {
     const proceed = window.confirm("Are you sure you want to delete");
@@ -84,16 +85,16 @@ const Orders = () => {
                           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                               <tr>
-                                <th scope="col" className="px-6 py-3 text-lg">
+                                <th scope="col" className="px-6 py-3 text-xs md:text-lg">
                                   <span className="sr-only">Image</span>
                                 </th>
-                                <th scope="col" className="px-6 py-3 text-lg">
+                                <th scope="col" className="px-6 py-3 text-xs md:text-lg">
                                   Items
                                 </th>
-                                <th scope="col" className="px-6 py-3 text-lg">
+                                <th scope="col" className="px-6 py-3 text-xs md:text-lg">
                                   Price
                                 </th>
-                                <th scope="col" className="px-6 py-3 text-lg">
+                                <th scope="col" className="px-6 py-3 text-xs md:text-lg">
                                   Action
                                 </th>
                               </tr>

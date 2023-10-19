@@ -23,7 +23,7 @@ const ServiceDetails = () => {
       rating: `${star ? star : 0}`,
       reviewed_text: review
     }
-    console.log("🚀 ~ file: ServiceDetails.js:17 ~ handelReviewSubmit ~ reviewData:", reviewDetails)
+    // console.log("🚀 ~ file: ServiceDetails.js:17 ~ handelReviewSubmit ~ reviewData:", reviewDetails)
 
     fetch("https://service-review-assignment-server-nine.vercel.app/reviews", {
       method: "POST",
@@ -44,10 +44,10 @@ const ServiceDetails = () => {
   }
   return (
     <>
-      <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-2xl md:px-12 lg:px-4 lg:py-20">
+      <div className="px-6 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-2xl md:px-12 lg:px-4 lg:py-20">
         <div className="grid gap-8 lg:grid-cols-2">
           <div className="lg:pr-10 lg:mt-10">
-            <h5 className="mb-4 text-3xl lg:text-6xl font-extrabold leading-none">
+            <h5 className="mb-4 text-4xl lg:text-6xl font-extrabold leading-none">
               {title}
             </h5>
             <p className="mb-6 text-gray-900 text-justify">{description}</p>
@@ -59,15 +59,15 @@ const ServiceDetails = () => {
           <div className='grid place-items-center'>
             <PhotoView src={image} >
               <img
-                className="object-cover w-full h-96  rounded shadow-lg"
+                className="object-cover lg:w-full h-72 lg:h-96 w-80  rounded shadow-lg"
                 src={image}
                 alt={title}
               />
             </PhotoView>
           </div>
         </div>
-        <div className='mx-12 my-6 '>
-          <p className='text-5xl font-semibold text-center'>Reviews</p>
+        <div className='lg:mx-12 my-6 '>
+          <p className='text-3xl lg:text-5xl font-semibold text-center'>Reviews</p>
           <div className='my-6'>
             {
               user && user?.uid ?
@@ -77,29 +77,34 @@ const ServiceDetails = () => {
                     {[...Array(5).keys()].map((number) => (
                       <input
                         {...register("star")} type="radio"
-                        value={`${number + 1}`} className="mask mask-star-2 bg-orange-400"
+                        defaultChecked={number + 1 === 1}
+                        value={number + 1} className="mask mask-star-2 bg-orange-400"
                         key={number}
                       />
                     ))}
                   </div>
-                  <p className='text-3xl font-semibold my-6'>Share your thoughts with us</p>
-                  <textarea
-                    type="text"
-                    id="review"
-                    {...register("review", { required: "Text field can not be empty" })}
-                    className="textarea textarea-info w-full  rounded-lg border-gray-200 p-3 text-lg"
-                    placeholder="Review"
-                    rows={8}
-                  />
-                  {errors.review && (
-                    <p className="text-red-600 text-lg mt-1">
-                      {errors.review.message}
-                    </p>
-                  )}
-                  <input className='my-4 btn btn-primary' type="submit" />
+                  <p className='text-xl lg:text-3xl font-semibold my-6'>Share your thoughts with us</p>
+                  <div className='flex flex-col'>
+                    <textarea
+                      type="text"
+                      id="review"
+                      {...register("review", { required: "Text field can not be empty" })}
+                      className="textarea textarea-info lg:w-full  rounded-lg h-32 lg:h-64 border-gray-200 p-3 text-lg"
+                      placeholder="Review"
+
+                    />
+                    {errors.review && (
+                      <p className="text-red-600 text-lg mt-1">
+                        {errors.review.message}
+                      </p>
+                    )}
+                    <div className='flex  justify-end'>
+                      <input className='my-4 btn lg:w-60 w-1/2 btn-primary' type="submit" />
+                    </div>
+                  </div>
                 </form>
                 :
-                <div className='grid place-items-center my-10 text-4xl text-red-600'>
+                <div className='grid place-items-center my-10 lg:text-4xl text-2xl text-red-600'>
                   <Link to="/login">Please log in to review</Link>
                 </div>
             }

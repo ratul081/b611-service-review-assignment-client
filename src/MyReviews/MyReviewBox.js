@@ -37,12 +37,12 @@ const MyReviewBox = ({ myReview, handelUpdated, handleDeleted }) => {
   return (
     <>
       <div
-        className="rounded-lg bg-gray-50 mx-24 mt-4 mb-4 p-6 border-2 border-rose-600 shadow-sm sm:p-8 relative">
+        className="rounded-lg bg-gray-50 lg:mx-24 mt-4 mb-4 p-6 border-2 border-orange-400 shadow-sm sm:p-8 relative">
         <div>
-          <p className='text-2xl mb-4'>Reviewed Service: <span className='font-semibold '>{myReview?.service_name}</span></p>
-          <div className="absolute right-5 top-5 text-4xl space-x-2">
-            <button onClick={() => viewEditBox(myReview)}><BiEdit /></button>
-            <button onClick={() => handleDeleted(myReview._id)} ><BsTrashFill /></button>
+          <p className='text-lg lg:text-2xl mb-4 lg:mt-0 my-4 font-semibold'>{myReview?.service_name}</p>
+          <div className="absolute right-1 top-3 lg:right-5 lg:top-5 text-xl lg:text-4xl space-x-2">
+            <button onClick={() => viewEditBox(myReview)}><BiEdit color='#5b5b5b' /></button>
+            <button onClick={() => handleDeleted(myReview._id)} ><BsTrashFill color='#e65353' /></button>
           </div>
           <div className="flex items-center gap-4">
             <img

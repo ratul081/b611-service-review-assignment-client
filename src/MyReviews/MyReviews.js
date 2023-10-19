@@ -15,7 +15,7 @@ const MyReviews = () => {
 
 
   useEffect(() => {
-    const unsubscribe = () => {
+    
       fetch(`https://service-review-assignment-server-nine.vercel.app/my_reviews?email=${user.email}`, {
         headers: {
           authorization: `Bearer ${localStorage.getItem(
@@ -33,9 +33,7 @@ const MyReviews = () => {
           setRefresh(true)
           setMyReviews(data.data)
         })
-    }
-    return unsubscribe()
-  }, [user.email, update])
+  }, [user.email, update, logOut])
 
   const handelUpdated = (myReview, updatedData) => {
     fetch(`https://service-review-assignment-server-nine.vercel.app/my_reviews/${myReview._id}`, {
@@ -89,9 +87,9 @@ const MyReviews = () => {
                 </div>
               </>
               :
-              <div className='m-12'>
-                <h1 className='text-5xl'>Here are yours reviews</h1>
-                <div className='space-y-4 mt-12'>
+              <div className='lg:m-12 m-6'>
+                <h1 className='text-xl lg:text-5xl'>Here are yours reviews</h1>
+                <div className='space-y-4 mt-12 '>
                   {
                     myReviews.map(myReview =>
                       <MyReviewBox

@@ -75,26 +75,25 @@ const Carousel = () => {
   const goToSlide = (slideIndex) => {
     setCurrentIndex(slideIndex);
   };
-  setTimeout(() => nextSlide(), 10000)
   return (
-    <div className='max-w-[1650px] h-[780px] w-full m-auto mt-0 py-16 px-4 relative group'>
+    <div className='max-w-[1650px] h-80 lg:h-[780px] w-full m-auto mt-4 lg:py-16 lg:px-4 relative group'>
       <div
         style={{ backgroundImage: `url(${slides[currentIndex].url})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundColor: "rgba(0,0,0,0.6)", backgroundBlendMode: "multiply" }}
         className='w-full h-full bg-center bg-cover duration-500 grid place-items-center'>
-        <div className='text-white px-96'>
-          <p className='text-4xl text-center my-2 leading-snug' >{slides[currentIndex].quote}</p>
-          <p className='text-end text-xl italic '>{slides[currentIndex].author}</p>
+        <div className='text-white px-12 lg:px-96'>
+          <p className='lg:text-4xl text-center my-2 leading-snug' >{slides[currentIndex].quote}</p>
+          <p className=' text-end text-xs lg:text-xl italic '>{slides[currentIndex].author}</p>
         </div>
       </div>
       {/* Left Arrow */}
-      <div className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer'>
-        <BsChevronCompactLeft onClick={prevSlide} size={30} />
+      <div className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 lg:text-5xl rounded-full p-2 bg-black/20 text-white cursor-pointer'>
+        <BsChevronCompactLeft onClick={prevSlide}  />
       </div>
       {/* Right Arrow */}
-      <div className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer'>
-        <BsChevronCompactRight onClick={nextSlide} size={30} />
+      <div className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 lg:text-5xl rounded-full p-2 bg-black/20 text-white cursor-pointer'>
+        <BsChevronCompactRight onClick={nextSlide} />
       </div>
-      <div className='flex top-4 justify-center py-2'>
+      <div className='flex lg:top-4 justify-center py-2'>
         {slides.map((slide, slideIndex) => (
           <div
             key={slideIndex}
