@@ -11,16 +11,17 @@ const MyReviews = () => {
   const [update, setUpdate] = useState(false);
   useTitle("My Reviews");
 
-  // console.log("🚀 ~ file: MyReviews.js:11 ~ MyReviews ~ editReview:", editReview)
 
 
   useEffect(() => {
-    
-      fetch(`https://service-review-assignment-server-nine.vercel.app/my_reviews?email=${user.email}`, {
+    const unSubscribe = () => {
+      fetch(`https://service-review-assignment-server-nine.vercel.app/my_reviews?email=${user.email
+        }`, {
         headers: {
           authorization: `Bearer ${localStorage.getItem(
             "b611ServiceAssignmentToken"
-          )}`,
+          )
+            }`,
         },
       })
         .then(res => {
@@ -33,6 +34,9 @@ const MyReviews = () => {
           setRefresh(true)
           setMyReviews(data.data)
         })
+
+    }
+    return () => unSubscribe()
   }, [user.email, update, logOut])
 
   const handelUpdated = (myReview, updatedData) => {

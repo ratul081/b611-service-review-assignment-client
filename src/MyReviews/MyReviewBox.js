@@ -12,11 +12,10 @@ const MyReviewBox = ({ myReview, handelUpdated, handleDeleted }) => {
   const viewEditBox = (myReview) => {
     setShow(!show);
     if (show) {
-      // console.log("open edit");
+      
       setReviewEdit(myReview._id)
     }
     else {
-      // console.log("close edit");
       setReviewEdit("")
     }
   }
@@ -31,9 +30,7 @@ const MyReviewBox = ({ myReview, handelUpdated, handleDeleted }) => {
     }
     handelUpdated(myReview, updatedData)
     setReviewEdit(" ")
-    // console.log("🚀 ~ file: MyReviews.js:56 ~ onSubmit ~ updatedData:", updatedData)
   }
-  // console.log(errors);
   return (
     <>
       <div

@@ -23,7 +23,6 @@ const ServiceDetails = () => {
       rating: `${star ? star : 0}`,
       reviewed_text: review
     }
-    // console.log("🚀 ~ file: ServiceDetails.js:17 ~ handelReviewSubmit ~ reviewData:", reviewDetails)
 
     fetch("https://service-review-assignment-server-nine.vercel.app/reviews", {
       method: "POST",
@@ -40,7 +39,6 @@ const ServiceDetails = () => {
       }
       )
 
-    // console.log(data);
   }
   return (
     <>

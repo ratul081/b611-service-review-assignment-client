@@ -22,11 +22,16 @@ export const routes = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home></Home>
+        element: <Home></Home>,
+        loader: () => fetch("https://service-review-assignment-server-nine.vercel.app/services_home")
       },
       {
         path: "/services",
         element: <Services></Services>,
+      },
+      {
+        path: "/add_services",
+        element: <PrivateRoute><Services></Services></PrivateRoute>
       },
       {
         path: "/service/:id",

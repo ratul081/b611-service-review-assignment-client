@@ -4,9 +4,12 @@ import Star from "./Star";
 const Reviews = ({ service_id, refresh }) => {
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
-    fetch(`https://service-review-assignment-server-nine.vercel.app/reviews?service_id=${service_id}`)
-      .then((res) => res.json())
-      .then((data) => setReviews(data.data));
+    const unSubscribe = () => {
+      fetch(`https://service-review-assignment-server-nine.vercel.app/reviews?service_id=${service_id}`)
+        .then((res) => res.json())
+        .then((data) => setReviews(data.data));
+    }
+    return () => unSubscribe()
   }, [service_id, refresh]);
   return (
     <>

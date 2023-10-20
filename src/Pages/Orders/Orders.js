@@ -13,23 +13,26 @@ const Orders = () => {
 
   useEffect(() => {
 
-    fetch(`https://service-review-assignment-server-nine.vercel.app/orders?email=${user.email}`, {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem(
-          "b611ServiceAssignmentToken"
-        )}`,
-      },
-    })
-      .then((res) => {
-        if (res.status === 403 || res.status === 401) {
-          logOut()
-        }
-        return res.json();
+    const unSubscribe = () => {
+      fetch(`https://service-review-assignment-server-nine.vercel.app/orders?email=${user.email}`, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem(
+            "b611ServiceAssignmentToken"
+          )}`,
+        },
       })
-      .then((data) => {
-        setRefresh(true)
-        setOrders(data.data ? data.data : [])
-      });
+        .then((res) => {
+          if (res.status === 403 || res.status === 401) {
+            logOut()
+          }
+          return res.json();
+        })
+        .then((data) => {
+          setRefresh(true)
+          setOrders(data.data ? data.data : [])
+        });
+    }
+    return () => unSubscribe()
   }, [user?.email, logOut]);
 
   const handleDeleted = (id) => {
@@ -45,7 +48,6 @@ const Orders = () => {
           return res.json();
         })
         .then((data) => {
-          console.log("🚀 ~ file: Orders.jsx:25 ~ .then ~ data:", data);
           if (data.deletedCount > 0) {
             toast.success("Order deleted successfully");
             const remaining = orders.filter((order) => order._id !== id);

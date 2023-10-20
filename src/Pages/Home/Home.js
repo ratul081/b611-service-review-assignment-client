@@ -1,25 +1,13 @@
-import React, { useEffect, useState } from 'react';
 import './home.css'
 import Cards from './Cards';
-import { Link } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import Carousel from './Carousel';
 import useTitle from '../../hooks/useTitle';
 
 const Home = () => {
-  const [services, setServices] = useState([])
   useTitle("Home");
-  useEffect(() => {
-    fetch("https://service-review-assignment-server-nine.vercel.app/services_home")
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
-        if (data.status) {
-          setServices(data.data)
-        }
-      })
-  }, [])
+  const services = useLoaderData().data
 
-  console.log(services);
   return (
     <div>
       <Carousel></Carousel>
@@ -71,6 +59,8 @@ const Home = () => {
           <p className='text-xl'>Learn more</p>
         </div>
         <img className='w-5/6 lg:w-full' src="https://i.ibb.co/5nG8s2Z/pay-info.png" alt="" />
+      </div>
+      <div>
       </div>
     </div>
   );

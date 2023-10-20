@@ -24,7 +24,6 @@ const Register = () => {
     createUser(email, password)
       .then((result) => {
         const user = result.user;
-        console.log("🚀 ~ file: Register.jsx:24 ~ handleSingUp ~ user:", user);
         reset();
         handleUpdateUser(firstName, lastName);
         setAuthToken(user)
@@ -101,7 +100,7 @@ const Register = () => {
                 </label>
                 <input
                   type="text"
-
+                  placeholder="Last name"
                   {...register("lastName", {
                     required: "Please enter your last name",
                     maxLength: 100,
@@ -121,7 +120,7 @@ const Register = () => {
                 </label>
                 <input
                   type="email"
-
+                  placeholder="Email Address"
                   {...register("email", {
                     required: "Please enter your email",
                     pattern: /^\S+@\S+$/i,
@@ -140,6 +139,7 @@ const Register = () => {
                 </label>
                 <input
                   type="password"
+                  placeholder="Password"
                   {...register("password", {
                     required: "Password is required",
                     minLength: {
@@ -158,6 +158,7 @@ const Register = () => {
                 </label>
                 <input
                   type="password"
+                  placeholder="Re-type Password"
                   {...register("passwordConfirmation", {
                     validate: (value) =>
                       value === getValues("password") || "Passwords must match",

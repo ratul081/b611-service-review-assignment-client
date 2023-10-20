@@ -70,6 +70,11 @@ const Header = () => {
                 }
                 <li><NavLink
                   className={({ isActive, isPending }) =>
+                    isPending ? "pending" : isActive ? "text-orange-600" : ""
+                  }
+                  to="/add_services">Add services</NavLink></li>
+                <li><NavLink
+                  className={({ isActive, isPending }) =>
                     isPending ? "pending" : isActive ? "rounded  p-2 text-2xl text-orange-600" : ""
                   }
                   to="/blogs">Blogs</NavLink></li>

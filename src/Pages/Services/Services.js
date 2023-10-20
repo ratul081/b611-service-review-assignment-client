@@ -26,7 +26,6 @@ export const handelOrder = (id, title, user) => {
       (data.data.acknowledged) ?
         toast.success("Service added successfully") : toast.error("Something went wrong")
     )
-  // console.log(orderDetails);
 }
 
 const Services = () => {
@@ -39,22 +38,25 @@ const Services = () => {
   const pages = Math.ceil(count / size);
 
   useEffect(() => {
+
     const url = `https://service-review-assignment-server-nine.vercel.app/services?page=${page}&size=${size}`;
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log("🚀 ~ file: Home.jsx:26 ~ .then ~ data:", data.data.data)
-        if (data.status) {
-          setCount(data.data.count);
-          setRefresh(true);
-          setServiceData(data.data.data);
-        }
-      });
+    const unSubscribe = () => {
+
+      fetch(url)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status) {
+            setCount(data.data.count);
+            setRefresh(true);
+            setServiceData(data.data.data);
+          }
+        });
+    }
+    return () => unSubscribe()
+
   }, [page, size]);
 
-  // console.log(`page= ${page} size= ${size} pages= ${pages} data = ${serviceData.length}`);
 
-  console.log(serviceData);
   return (
     <div className='my-6 mx-8 lg:mx-12' >
       {
