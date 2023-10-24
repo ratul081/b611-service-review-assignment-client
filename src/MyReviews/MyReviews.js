@@ -14,29 +14,25 @@ const MyReviews = () => {
 
 
   useEffect(() => {
-    const unSubscribe = () => {
-      fetch(`https://service-review-assignment-server-nine.vercel.app/my_reviews?email=${user.email
-        }`, {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem(
-            "b611ServiceAssignmentToken"
-          )
-            }`,
-        },
+    fetch(`https://service-review-assignment-server-nine.vercel.app/my_reviews?email=${user.email
+      }`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem(
+          "b611ServiceAssignmentToken"
+        )
+          }`,
+      },
+    })
+      .then(res => {
+        if (res.status === 401 || res.status === 403) {
+          logOut()
+        }
+        return res.json()
       })
-        .then(res => {
-          if (res.status === 401 || res.status === 403) {
-            logOut()
-          }
-          return res.json()
-        })
-        .then(data => {
-          setRefresh(true)
-          setMyReviews(data.data)
-        })
-
-    }
-    return () => unSubscribe()
+      .then(data => {
+        setRefresh(true)
+        setMyReviews(data.data)
+      })
   }, [user.email, update, logOut])
 
   const handelUpdated = (myReview, updatedData) => {

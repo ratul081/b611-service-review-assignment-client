@@ -38,22 +38,16 @@ const Services = () => {
   const pages = Math.ceil(count / size);
 
   useEffect(() => {
-
     const url = `https://service-review-assignment-server-nine.vercel.app/services?page=${page}&size=${size}`;
-    const unSubscribe = () => {
-
-      fetch(url)
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.status) {
-            setCount(data.data.count);
-            setRefresh(true);
-            setServiceData(data.data.data);
-          }
-        });
-    }
-    return () => unSubscribe()
-
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status) {
+          setCount(data.data.count);
+          setRefresh(true);
+          setServiceData(data.data.data);
+        }
+      });
   }, [page, size]);
 
 

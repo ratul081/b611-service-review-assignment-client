@@ -12,27 +12,24 @@ const Orders = () => {
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
-
-    const unSubscribe = () => {
-      fetch(`https://service-review-assignment-server-nine.vercel.app/orders?email=${user.email}`, {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem(
-            "b611ServiceAssignmentToken"
-          )}`,
-        },
+    fetch(`https://service-review-assignment-server-nine.vercel.app/orders?email=${user.email}`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem(
+          "b611ServiceAssignmentToken"
+        )}`,
+      },
+    })
+      .then((res) => {
+        if (res.status === 403 || res.status === 401) {
+          logOut()
+        }
+        return res.json();
       })
-        .then((res) => {
-          if (res.status === 403 || res.status === 401) {
-            logOut()
-          }
-          return res.json();
-        })
-        .then((data) => {
-          setRefresh(true)
-          setOrders(data.data ? data.data : [])
-        });
-    }
-    return () => unSubscribe()
+      .then((data) => {
+        setRefresh(true)
+        setOrders(data.data ? data.data : [])
+      });
+
   }, [user?.email, logOut]);
 
   const handleDeleted = (id) => {

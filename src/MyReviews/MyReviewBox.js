@@ -12,7 +12,7 @@ const MyReviewBox = ({ myReview, handelUpdated, handleDeleted }) => {
   const viewEditBox = (myReview) => {
     setShow(!show);
     if (show) {
-      
+
       setReviewEdit(myReview._id)
     }
     else {
@@ -74,6 +74,7 @@ const MyReviewBox = ({ myReview, handelUpdated, handleDeleted }) => {
                   {[...Array(5).keys()].map((number) => (
                     <input
                       {...register("star")} type="radio"
+                      defaultChecked={(number + 1) === parseInt(myReview?.rating)}
                       value={`${number + 1}`} className="mask mask-star-2 bg-orange-400"
                       key={number}
                     />

@@ -8,13 +8,10 @@ const OrderTable = ({ order, handleDeleted }) => {
   } = order;
   const [bookedService, setBookedService] = useState([]);
   useEffect(() => {
-    const unSubscribe = () => {
-      fetch(
-        `https://service-review-assignment-server-nine.vercel.app/service/${service_id}`)
-        .then((res) => res.json())
-        .then((data) => setBookedService(data.data));
-    }
-    return () => unSubscribe()
+    fetch(
+      `https://service-review-assignment-server-nine.vercel.app/service/${service_id}`)
+      .then((res) => res.json())
+      .then((data) => setBookedService(data.data));
   }, [service_id]);
   return (
     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
